@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<script src="site-config.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #f3efe6; color: #0e1b2c; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  ::selection { background: #2e6bf2; color: #fff; }
+  ::-webkit-scrollbar { width: 12px; }
+  ::-webkit-scrollbar-track { background: #e7e1d6; }
+  ::-webkit-scrollbar-thumb { background: #0e1b2c; border: 3px solid #e7e1d6; border-radius: 7px; }
+  .nav-link { color: rgba(14,27,44,.6); text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: .01em; transition: color .2s; }
+  .nav-link:hover { color: #0e1b2c; }
+  .btn-primary:hover { background: #2455c8 !important; }
+  .btn-ghost:hover { color: #2e6bf2 !important; }
+  .reveal { opacity: 1; }
+  .reveal[data-rv="out"] { opacity: 0; transform: translateY(20px); }
+  .reveal[data-rv="in"] { opacity: 1; transform: none; transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); }
+  .faq-q:hover { color: #2e6bf2 !important; }
+  .copy-email { cursor: pointer; text-decoration: underline; text-decoration-color: rgba(111,155,242,.45); text-underline-offset: 4px; transition: text-decoration-color .2s; }
+  .copy-email:hover { text-decoration-color: #6f9bff; }
+  .faq-body { max-height: 0; overflow: hidden; opacity: 0; transition: max-height .45s cubic-bezier(.2,.7,.2,1), opacity .35s ease; }
+  .faq-body[data-open="1"] { max-height: 560px; opacity: 1; }
+  .faq-sign { display: inline-block; transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+  .nhp-cursor { position: fixed; top: 0; left: 0; width: 8px; height: 8px; border-radius: 50%; background: #2e6bf2; pointer-events: none; z-index: 99999; transform: translate(-50%,-50%); transition: width .18s ease, height .18s ease, opacity .2s; }
+  .nhp-cursor.hov { width: 5px; height: 5px; }
+  .nhp-cursor.down { width: 14px; height: 14px; }
+  .nhp-ring { position: fixed; top: 0; left: 0; width: 34px; height: 34px; border: 1.5px solid rgba(14,27,44,.32); border-radius: 50%; pointer-events: none; z-index: 99998; transform: translate(-50%,-50%); transition: width .22s ease, height .22s ease, border-color .22s ease, opacity .2s; }
+  .nhp-ring.hov { width: 52px; height: 52px; border-color: rgba(46,107,242,.55); }
+  @media (max-width: 920px) {
+    .hero-grid { grid-template-columns: 1fr !important; min-height: 0 !important; }
+    .hero-panel { border-left: none !important; border-top: 1px solid rgba(14,27,44,.12) !important; }
+    .two-col, .three-col, .six-grid, .fit-grid, .twocard { grid-template-columns: 1fr !important; }
+    .step-row { grid-template-columns: 56px 1fr !important; }
+    .h-xl { font-size: 36px !important; }
+    .h-hero { font-size: 38px !important; }
+    .pad-section { padding: 80px 0 !important; }
+    .pad-x { padding-left: 28px !important; padding-right: 28px !important; }
+  }
+</style>
+</helmet>
+
+<!-- ===================== NAV ===================== -->
+<div id="nhp-nav" style="position:sticky; top:0; z-index:1000; background:rgba(243,239,230,.88); backdrop-filter:saturate(150%) blur(10px); -webkit-backdrop-filter:saturate(150%) blur(10px); border-bottom:1px solid rgba(14,27,44,.10);">
+  <div class="pad-x" style="max-width:1200px; margin:0 auto; padding:16px 48px; display:flex; align-items:center; justify-content:space-between;">
+    <a href="#top" aria-label="North Horizon Partners" style="display:flex; align-items:center; gap:11px; text-decoration:none;"><svg width="31" height="31" viewBox="0 0 100 100" fill="none" style="display:block; flex-shrink:0;"><circle cx="50" cy="50" r="40" stroke="#0e1b2c" stroke-width="3.5"/><line x1="50" y1="6" x2="50" y2="18" stroke="#0e1b2c" stroke-width="3.5"/><path d="M50 27 L65 67 L50 58 L35 67 Z" fill="#2e6bf2"/></svg><span style="font-family:'Newsreader',Georgia,serif; font-size:22px; font-weight:500; color:#0e1b2c; letter-spacing:.005em; line-height:1;">Horizon Partners</span></a>
+    <div style="display:flex; align-items:center; gap:34px;">
+      <a href="#how" class="nav-link">How it works</a>
+      <a href="#what-we-do" class="nav-link">What we do</a>
+      <a href="#fit" class="nav-link">Fit</a>
+      <a href="#faq" class="nav-link">FAQ</a>
+      <a href="https://cal.com/ni.ck/access-call" class="book-cta btn-primary" style="display:inline-flex; align-items:center; background:#2e6bf2; color:#fff; text-decoration:none; font-size:14px; font-weight:600; padding:10px 18px; border-radius:6px; white-space:nowrap;">Book a call</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<a id="top"></a>
+<section style="border-bottom:1px solid rgba(14,27,44,.12);">
+  <div class="hero-grid" style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1.04fr .96fr; min-height:calc(100vh - 60px);">
+    <div class="pad-x" style="padding:76px 56px 76px 48px; display:flex; flex-direction:column; justify-content:center;">
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:30px;">
+        <span style="height:1px; width:38px; background:#2e6bf2;"></span>
+        <span style="font-size:13px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#2e6bf2;">The Creator Access System</span>
+      </div>
+      <h1 class="h-hero" style="font-family:'Newsreader',Georgia,serif; font-size:46px; line-height:1.16; letter-spacing:-.015em; font-weight:500; margin:0; max-width:620px; color:#0e1b2c;">What if the right creators for your brand were already <span style="font-style:italic; color:#2e6bf2;">picked, vetted, and ready</span>?</h1>
+      <p style="margin:18px 0 0; font-family:'Newsreader',Georgia,serif; font-size:25px; line-height:1.34; font-weight:400; color:rgba(14,27,44,.5); max-width:520px;">Without you scrolling through a thousand profiles to find them?</p>
+      <p style="margin:30px 0 0; font-size:19px; line-height:1.5; color:rgba(14,27,44,.68); max-width:440px;">You pick from a vetted shortlist.<br>We handle everything else.</p>
+      <div style="display:flex; align-items:center; gap:18px; margin-top:40px; flex-wrap:wrap;">
+        <a href="https://cal.com/ni.ck/access-call" class="book-cta btn-primary" style="display:inline-flex; align-items:center; gap:8px; background:#2e6bf2; color:#fff; text-decoration:none; font-size:16px; font-weight:600; padding:16px 28px; border-radius:7px;">Get my creator shortlist &rarr;</a>
+        <a href="#how" class="btn-ghost" style="display:inline-flex; align-items:center; gap:8px; color:#0e1b2c; text-decoration:none; font-size:16px; font-weight:500; padding:16px 6px;">See how it works &darr;</a>
+      </div>
+    </div>
+    <div class="hero-panel" style="border-left:1px solid rgba(14,27,44,.12); background:rgba(14,27,44,.025); display:flex; flex-direction:column;">
+      <div style="flex:1; padding:54px 56px; display:flex; flex-direction:column; justify-content:center; gap:16px;">
+        <div style="display:flex; align-items:center; gap:12px; font-size:13px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:#2e6bf2;"><svg width="30" height="30" viewBox="0 0 100 100" fill="none" style="display:block; flex-shrink:0;"><circle cx="50" cy="50" r="40" stroke="#0e1b2c" stroke-width="3.5"/><line x1="50" y1="6" x2="50" y2="18" stroke="#0e1b2c" stroke-width="3.5"/><path d="M50 27 L65 67 L50 58 L35 67 Z" fill="#2e6bf2"/></svg>The right creator</div>
+        <div style="font-family:'Newsreader',Georgia,serif; font-size:46px; line-height:1.04; font-weight:500; letter-spacing:-.01em;">Spend <span style="font-style:italic; color:#2e6bf2;">multiplies.</span></div>
+        <p style="margin:4px 0 0; font-size:15.5px; line-height:1.55; color:rgba(14,27,44,.6); max-width:380px;">Real engagement, a brief that lands, tracking from day one. The campaign works and you know exactly why.</p>
+      </div>
+      <div style="border-top:1px solid rgba(14,27,44,.12); flex:1; padding:54px 56px; display:flex; flex-direction:column; justify-content:center; gap:16px;">
+        <div style="display:flex; align-items:center; gap:13px; font-size:13px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:rgba(14,27,44,.4);"><svg width="30" height="30" viewBox="0 0 100 100" fill="none" style="display:block; flex-shrink:0; transform:rotate(180deg);"><circle cx="50" cy="50" r="40" stroke="rgba(14,27,44,.3)" stroke-width="3.5"/><line x1="50" y1="6" x2="50" y2="18" stroke="rgba(14,27,44,.3)" stroke-width="3.5"/><path d="M50 27 L65 67 L50 58 L35 67 Z" fill="rgba(14,27,44,.32)"/></svg>The wrong one</div>
+        <div style="font-family:'Newsreader',Georgia,serif; font-size:46px; line-height:1.04; font-weight:500; letter-spacing:-.01em; color:rgba(14,27,44,.4);">Spend <span style="font-style:italic;">burns.</span></div>
+        <p style="margin:4px 0 0; font-size:15.5px; line-height:1.55; color:rgba(14,27,44,.4); max-width:380px;">A bought audience, no tracking, rates you overpaid. The money's gone before you can tell what worked. Meanwhile your competitors are printing off the creators you couldn't find.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== THE PROBLEM ===================== -->
+<section id="problem" class="pad-section" style="padding:118px 0; background:#ece6db; border-top:1px solid rgba(14,27,44,.10); border-bottom:1px solid rgba(14,27,44,.10);">
+  <div class="pad-x" style="max-width:1200px; margin:0 auto; padding:0 48px;">
+    <div class="two-col reveal" style="display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start;">
+      <div>
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:26px;">
+          <span style="height:1px; width:38px; background:#2e6bf2;"></span>
+          <span style="font-size:13px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#2e6bf2;">The real problem</span>
+        </div>
+        <h2 class="h-xl" style="font-family:'Newsreader',Georgia,serif; font-size:44px; line-height:1.12; letter-spacing:-.015em; font-weight:500; margin:0; color:#0e1b2c;">You don't have an influencer problem.<br>You have a <span style="font-style:italic; color:#2e6bf2;">selection</span> problem.</h2>
+      </div>
+      <div style="padding-top:6px;">
+        <p style="margin:0; font-size:18px; line-height:1.62; color:rgba(14,27,44,.74);">Creator marketing works. You've watched brands like yours blow up off one post, so the channel isn't broken. What breaks the campaign is everything before the post goes live: the wrong creator, the loose brief, the missing tracking. Same budget, opposite outcome, and the difference is who you pick and how the campaign is run.</p>
+      </div>
+    </div>
+    <div class="three-col reveal" style="display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:72px;">
+      <div style="background:#f3efe6; border:1px solid rgba(14,27,44,.10); border-radius:10px; padding:34px 30px;">
+        <div style="height:3px; width:34px; background:#2e6bf2; margin-bottom:24px;"></div>
+        <h3 style="font-family:'Newsreader',Georgia,serif; font-size:23px; font-weight:500; margin:0 0 12px; color:#0e1b2c;">Wrong creator, wasted spend</h3>
+        <p style="margin:0; font-size:16px; line-height:1.58; color:rgba(14,27,44,.68);">A big follower count hides a dead or bought audience. You pay for reach, get no movement, and have no way to know until the money's gone.</p>
+      </div>
+      <div style="background:#f3efe6; border:1px solid rgba(14,27,44,.10); border-radius:10px; padding:34px 30px;">
+        <div style="height:3px; width:34px; background:#2e6bf2; margin-bottom:24px;"></div>
+        <h3 style="font-family:'Newsreader',Georgia,serif; font-size:23px; font-weight:500; margin:0 0 12px; color:#0e1b2c;">No tracking, no answers</h3>
+        <p style="margin:0; font-size:16px; line-height:1.58; color:rgba(14,27,44,.68);">If the campaign isn't built on codes and links from day one, you're guessing. &ldquo;It felt like it did okay&rdquo; is not a result you can scale.</p>
+      </div>
+      <div style="background:#f3efe6; border:1px solid rgba(14,27,44,.10); border-radius:10px; padding:34px 30px;">
+        <div style="height:3px; width:34px; background:#2e6bf2; margin-bottom:24px;"></div>
+        <h3 style="font-family:'Newsreader',Georgia,serif; font-size:23px; font-weight:500; margin:0 0 12px; color:#0e1b2c;">The founder becomes the agency</h3>
+        <p style="margin:0; font-size:16px; line-height:1.58; color:rgba(14,27,44,.68);">Sourcing, vetting, DMs, contracts, chasing deliverables. It quietly becomes a second job for whoever can least afford the time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== HOW IT WORKS (navy) ===================== -->
+<section id="how" class="pad-section" style="padding:120px 0; background:#0e1b2c; color:#f1ede4;">
+  <div class="pad-x" style="max-width:1200px; margin:0 auto; padding:0 48px;">
+    <div class="reveal" style="max-width:820px;">
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:26px;">
+        <span style="height:1px; width:38px; background:#6f9bff;"></span>
+        <span style="font-size:13px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#6f9bff;">How it works</span>
+      </div>
+      <h2 class="h-xl" style="font-family:'Newsreader',Georgia,serif; font-size:44px; line-height:1.12; letter-spacing:-.015em; font-weight:500; margin:0 0 22px;">The Creator Access System.<br>Built so your budget goes to the <span style="font-style:italic; color:#6f9bff;">right creators.</span></h2>
+      <p style="margin:0; font-size:18px; line-height:1.6; color:rgba(241,237,228,.66); max-width:680px;">Everything below is work that would otherwise be yours.<br>We take all of it.</p>
+    </div>
+    <div class="reveal" style="margin-top:60px;">
+      <div class="step-row" style="display:grid; grid-template-columns:90px 1fr; gap:40px; padding:30px 0; border-top:1px solid rgba(241,237,228,.16);">
+        <div style="font-family:'Newsreader',Georgia,serif; font-size:46px; line-height:1; color:#6f9bff; font-weight:500;">01</div>
+        <div style="max-width:760px;"><h3 style="font-family:'Newsreader',Georgia,serif; font-size:24px; font-weight:500; margin:2px 0 11px;">Strategy &amp; Goals</h3><p style="margin:0; font-size:16px; line-height:1.6; color:rgba(241,237,228,.68);">We start with your goals, budget, and audience. Who you're trying to reach, what a win looks like, what the campaign needs to return. Every creator choice after this traces back to it.</p></div>
+      </div>
+      <div class="step-row" style="display:grid; grid-template-columns:90px 1fr; gap:40px; padding:30px 0; border-top:1px solid rgba(241,237,228,.16);">
+        <div style="font-family:'Newsreader',Georgia,serif; font-size:46px; line-height:1; color:#6f9bff; font-weight:500;">02</div>
+        <div style="max-width:760px;"><h3 style="font-family:'Newsreader',Georgia,serif; font-size:24px; font-weight:500; margin:2px 0 11px;">Source &amp; Match</h3><p style="margin:0; font-size:16px; line-height:1.6; color:rgba(241,237,228,.68);">We find creators who fit your brand, your category, and your goals. Not whoever's available, the ones actually aligned with what you sell.</p></div>
+      </div>
+      <div class="step-row" style="display:grid; grid-template-columns:90px 1fr; gap:40px; padding:30px 0; border-top:1px solid rgba(241,237,228,.16);">
+        <div style="font-family:'Newsreader',Georgia,serif; font-size:46px; line-height:1; color:#6f9bff; font-weight:500;">03</div>
+        <div style="max-width:760px;"><h3 style="font-family:'Newsreader',Georgia,serif; font-size:24px; font-weight:500; margin:2px 0 11px;">Quality Vetting</h3><p style="margin:0; font-size:16px; line-height:1.6; color:rgba(241,237,228,.68);">We screen for the thing that matters: real engagement, not vanity reach. Audience quality checked before a dollar moves, so every name you see is already worth backing.</p></div>
+      </div>
+      <div class="step-row" style="display:grid; grid-template-columns:90px 1fr; gap:40px; padding:30px 0; border-top:1px solid rgba(241,237,228,.16);">
+        <div style="font-family:'Newsreader',Georgia,serif; font-size:46px; line-height:1; color:#6f9bff; font-weight:500;">04</div>
+        <div style="max-width:760px;"><h3 style="font-family:'Newsreader',Georgia,serif; font-size:24px; font-weight:500; margin:2px 0 11px;">Contract &amp; Brief</h3><p style="margin:0; font-size:16px; line-height:1.6; color:rgba(241,237,228,.68);">We handle rates, contracts, usage rights, and the brief. Clear deliverables, clear terms, clear timeline. Creators quote agencies better than one-off brands, so the margin starts paying for itself before the campaign goes live.</p></div>
+      </div>
+      <div class="step-row" style="display:grid; grid-template-columns:90px 1fr; gap:40px; padding:30px 0; border-top:1px solid rgba(241,237,228,.16);">
+        <div style="font-family:'Newsreader',Georgia,serif; font-size:46px; line-height:1; color:#6f9bff; font-weight:500;">05</div>
+        <div style="max-width:760px;"><h3 style="font-family:'Newsreader',Georgia,serif; font-size:24px; font-weight:500; margin:2px 0 11px;">Manage &amp; Deliver</h3><p style="margin:0; font-size:16px; line-height:1.6; color:rgba(241,237,228,.68);">We manage creators through production and posting. On-brief, on-time, on-brand. If someone goes quiet or off-script, that lands on us, not on your desk.</p></div>
+      </div>
+      <div class="step-row" style="display:grid; grid-template-columns:90px 1fr; gap:40px; padding:30px 0; border-top:1px solid rgba(241,237,228,.16); border-bottom:1px solid rgba(241,237,228,.16);">
+        <div style="font-family:'Newsreader',Georgia,serif; font-size:46px; line-height:1; color:#6f9bff; font-weight:500;">06</div>
+        <div style="max-width:760px;"><h3 style="font-family:'Newsreader',Georgia,serif; font-size:24px; font-weight:500; margin:2px 0 11px;">Track &amp; Report</h3><p style="margin:0; font-size:16px; line-height:1.6; color:rgba(241,237,228,.68);">Every campaign runs against codes and links set up before the first post. You get outcomes you can read, not impressions you take on faith. That's how we know what worked and what to scale next.</p></div>
+      </div>
+    </div>
+    <div class="reveal" style="margin-top:44px;">
+      <a href="https://cal.com/ni.ck/access-call" class="book-cta btn-primary" style="display:inline-flex; align-items:center; gap:8px; background:#2e6bf2; color:#fff; text-decoration:none; font-size:16px; font-weight:600; padding:16px 28px; border-radius:7px;">See if my brand's a fit &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WHAT WE DO ===================== -->
+<section id="what-we-do" class="pad-section" style="padding:118px 0; background:#ece6db; border-top:1px solid rgba(14,27,44,.10); border-bottom:1px solid rgba(14,27,44,.10);">
+  <div class="pad-x" style="max-width:1200px; margin:0 auto; padding:0 48px;">
+    <div class="two-col reveal" style="display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start;">
+      <div>
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:26px;">
+          <span style="height:1px; width:38px; background:#2e6bf2;"></span>
+          <span style="font-size:13px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#2e6bf2;">What we do</span>
+        </div>
+        <h2 class="h-xl" style="font-family:'Newsreader',Georgia,serif; font-size:44px; line-height:1.12; letter-spacing:-.015em; font-weight:500; margin:0; color:#0e1b2c;">We run creator campaigns <span style="font-style:italic; color:#2e6bf2;">end to end.</span></h2>
+      </div>
+      <div style="padding-top:6px;">
+        <p style="margin:0; font-size:18px; line-height:1.62; color:rgba(14,27,44,.74);">Not a list of names handed over with good luck. We own the whole operation, from picking the right creators to reporting on what they returned. You stay focused on the business. We make the campaign happen and show you what it did.</p>
+      </div>
+    </div>
+    <div class="twocard reveal" style="display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:64px;">
+      <div style="background:#f3efe6; border:1px solid rgba(14,27,44,.10); border-radius:12px; padding:40px 38px;">
+        <div style="font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:#2e6bf2; margin-bottom:18px;">This is what we do</div>
+        <h3 style="font-family:'Newsreader',Georgia,serif; font-size:27px; font-weight:500; margin:0 0 14px; color:#0e1b2c;">End-to-end campaign management</h3>
+        <p style="margin:0; font-size:16.5px; line-height:1.6; color:rgba(14,27,44,.7);">Source, vet, contract, brief, deliver, track. The full operation for brand awareness, conversions, and creator partnerships that compound.</p>
+      </div>
+      <div style="background:#0e1b2c; border:1px solid #0e1b2c; border-radius:12px; padding:40px 38px; color:#f1ede4;">
+        <div style="font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:#6f9bff; margin-bottom:18px;">The easy way in</div>
+        <h3 style="font-family:'Newsreader',Georgia,serif; font-size:27px; font-weight:500; margin:0 0 14px;">Start with one campaign</h3>
+        <p style="margin:0; font-size:16.5px; line-height:1.6; color:rgba(241,237,228,.7);">Not ready for a full program? Start with a single campaign. A few vetted creators, one clean operation, tracked end to end. Small, contained, measurable. The easy way to see it work before you scale.</p>
+      </div>
+    </div>
+    <p class="reveal" style="margin:56px 0 0; font-family:'Newsreader',Georgia,serif; font-size:30px; line-height:1.3; letter-spacing:-.01em; font-weight:500; color:#0e1b2c; max-width:840px;">You choose the right creators.<br>We run everything that <span style="font-style:italic; color:#2e6bf2;">isn't the post itself.</span></p>
+  </div>
+</section>
+
+<!-- ===================== BEFORE / AFTER ===================== -->
+<section id="difference" class="pad-section" style="padding:118px 0;">
+  <div class="pad-x" style="max-width:1200px; margin:0 auto; padding:0 48px;">
+    <div class="reveal" style="max-width:820px; margin-bottom:60px;">
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:26px;">
+        <span style="height:1px; width:38px; background:#2e6bf2;"></span>
+        <span style="font-size:13px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#2e6bf2;">The difference</span>
+      </div>
+      <h2 class="h-xl" style="font-family:'Newsreader',Georgia,serif; font-size:44px; line-height:1.12; letter-spacing:-.015em; font-weight:500; margin:0 0 18px; color:#0e1b2c;">Running it yourself vs. running it through the system.</h2>
+      <p style="margin:0; font-size:18px; line-height:1.55; color:rgba(14,27,44,.66);">Same goal.<br>Two completely different operations.</p>
+    </div>
+    <div class="fit-grid reveal" style="display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start;">
+      <div style="border:1px solid rgba(14,27,44,.12); border-radius:12px; padding:36px 34px; background:rgba(14,27,44,.02);">
+        <div style="display:flex; align-items:center; gap:11px; margin-bottom:24px;"><svg width="22" height="22" viewBox="0 0 100 100" fill="none" style="display:block; flex-shrink:0; transform:rotate(180deg);"><circle cx="50" cy="50" r="40" stroke="rgba(14,27,44,.32)" stroke-width="5"/><path d="M50 27 L65 67 L50 58 L35 67 Z" fill="rgba(14,27,44,.34)"/></svg><span style="font-size:18px; font-weight:600; color:rgba(14,27,44,.5);">Doing it yourself</span></div>
+        <div style="display:flex; flex-direction:column; gap:13px;">
+          <div style="display:flex; gap:12px; align-items:flex-start;"><span style="color:rgba(14,27,44,.4); font-size:14px; line-height:1.5; flex-shrink:0;">&#10007;</span><span style="font-size:16px; line-height:1.5; color:rgba(14,27,44,.6);">Hunting for creators across IG and TikTok between everything else</span></div>
+          <div style="display:flex; gap:12px; align-items:flex-start;"><span style="color:rgba(14,27,44,.4); font-size:14px; line-height:1.5; flex-shrink:0;">&#10007;</span><span style="font-size:16px; line-height:1.5; color:rgba(14,27,44,.6);">Guessing which audiences are real and which are bought</span></div>
+          <div style="display:flex; gap:12px; align-items:flex-start;"><span style="color:rgba(14,27,44,.4); font-size:14px; line-height:1.5; flex-shrink:0;">&#10007;</span><span style="font-size:16px; line-height:1.5; color:rgba(14,27,44,.6);">Negotiating rates with no benchmark, usually overpaying</span></div>
+          <div style="display:flex; gap:12px; align-items:flex-start;"><span style="color:rgba(14,27,44,.4); font-size:14px; line-height:1.5; flex-shrink:0;">&#10007;</span><span style="font-size:16px; line-height:1.5; color:rgba(14,27,44,.6);">Chasing replies, approvals, and late deliverables</span></div>
+          <div style="display:flex; gap:12px; align-items:flex-start;"><span style="color:rgba(14,27,44,.4); font-size:14px; line-height:1.5; flex-shrink:0;">&#10007;</span><span style="font-size:16px; line-height:1.5; color:rgba(14,27,44,.6);">Briefs get half-followed and posts go up off-brand</span></div>
+          <div style="display:flex; gap:12px; align-items:flex-start;"><span style="color:rgba(14,27,44,.4); font-size:14px; line-height:1.5; flex-shrink:0;">&#10007;</span><span style="font-size:16px; line-height:1.5; color:rgba(14,27,44,.6);">Reporting is a feeling, not a number you can scale</span></div>
+        </div>
+      </div>
+      <div style="border:1.5px solid #2e6bf2; border-radius:12px; padding:36px 34px; background:rgba(46,107,242,.05);">
+        <div style="display:flex; align-items:center; gap:11px; margin-bottom:24px;"><svg width="22" height="22" viewBox="0 0 100 100" fill="none" style="display:block; flex-shrink:0;"><circle cx="50" cy="50" r="40" stroke="#2e6bf2" stroke-width="5"/><path d="M50 27 L65 67 L50 58 L35 67 Z" fill="#2e6bf2"/></svg><span style="font-size:18px; font-weight:600; color:#0e1b2c;">The Creator Access System</span></div>
+        <div style="display:flex; flex-direction:column; gap:13px;">
+          <div style="display:flex; gap:12px; align-items:flex-start;"><span style="color:#2e6bf2; font-weight:700; font-size:14px; line-height:1.5; flex-shrink:0;">&#10003;</span><span style="font-size:16px; line-height:1.5; color:#0e1b2c;">Vetted creators picked for your brand, no scrolling</span></div>
+          <div style="display:flex; gap:12px; align-items:flex-start;"><span style="color:#2e6bf2; font-weight:700; font-size:14px; line-height:1.5; flex-shrink:0;">&#10003;</span><span style="font-size:16px; line-height:1.5; color:#0e1b2c;">Audience quality screened before a dollar moves</span></div>
+          <div style="display:flex; gap:12px; align-items:flex-start;"><span style="color:#2e6bf2; font-weight:700; font-size:14px; line-height:1.5; flex-shrink:0;">&#10003;</span><span style="font-size:16px; line-height:1.5; color:#0e1b2c;">Agency rates negotiated, often below what you'd get alone</span></div>
+          <div style="display:flex; gap:12px; align-items:flex-start;"><span style="color:#2e6bf2; font-weight:700; font-size:14px; line-height:1.5; flex-shrink:0;">&#10003;</span><span style="font-size:16px; line-height:1.5; color:#0e1b2c;">Outreach, contracts, and coordination fully handled</span></div>
+          <div style="display:flex; gap:12px; align-items:flex-start;"><span style="color:#2e6bf2; font-weight:700; font-size:14px; line-height:1.5; flex-shrink:0;">&#10003;</span><span style="font-size:16px; line-height:1.5; color:#0e1b2c;">Creators briefed properly, delivered on-brief and on-time</span></div>
+          <div style="display:flex; gap:12px; align-items:flex-start;"><span style="color:#2e6bf2; font-weight:700; font-size:14px; line-height:1.5; flex-shrink:0;">&#10003;</span><span style="font-size:16px; line-height:1.5; color:#0e1b2c;">Every campaign reports against codes and links, built to scale</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal" style="margin-top:48px;">
+      <a href="https://cal.com/ni.ck/access-call" class="book-cta btn-primary" style="display:inline-flex; align-items:center; gap:8px; background:#2e6bf2; color:#fff; text-decoration:none; font-size:16px; font-weight:600; padding:16px 28px; border-radius:7px;">Show me who'd fit my brand &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FIT / NOT FIT ===================== -->
+<section id="fit" class="pad-section" style="padding:118px 0; background:#ece6db; border-top:1px solid rgba(14,27,44,.10); border-bottom:1px solid rgba(14,27,44,.10);">
+  <div class="pad-x" style="max-width:1200px; margin:0 auto; padding:0 48px;">
+    <div class="reveal" style="max-width:780px; margin-bottom:60px;">
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:26px;">
+        <span style="height:1px; width:38px; background:#2e6bf2;"></span>
+        <span style="font-size:13px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#2e6bf2;">Fit</span>
+      </div>
+      <h2 class="h-xl" style="font-family:'Newsreader',Georgia,serif; font-size:44px; line-height:1.12; letter-spacing:-.015em; font-weight:500; margin:0; color:#0e1b2c;">This works best when the <span style="font-style:italic; color:#2e6bf2;">fit is right.</span></h2>
+    </div>
+    <div class="fit-grid reveal" style="display:grid; grid-template-columns:1fr 1fr; gap:48px;">
+      <div>
+        <h3 style="font-size:17px; font-weight:600; color:#0e1b2c; margin:0 0 22px;">You'll get the most from this if&hellip;</h3>
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div style="display:flex; gap:13px; align-items:flex-start;"><svg width="21" height="21" viewBox="0 0 100 100" fill="none" style="display:block; flex-shrink:0; margin-top:1px;"><circle cx="50" cy="50" r="40" stroke="#2e6bf2" stroke-width="5"/><path d="M50 27 L65 67 L50 58 L35 67 Z" fill="#2e6bf2"/></svg><span style="font-size:16.5px; line-height:1.45; color:rgba(14,27,44,.8);">You're a DTC brand with real revenue and a real product</span></div>
+          <div style="display:flex; gap:13px; align-items:flex-start;"><svg width="21" height="21" viewBox="0 0 100 100" fill="none" style="display:block; flex-shrink:0; margin-top:1px;"><circle cx="50" cy="50" r="40" stroke="#2e6bf2" stroke-width="5"/><path d="M50 27 L65 67 L50 58 L35 67 Z" fill="#2e6bf2"/></svg><span style="font-size:16.5px; line-height:1.45; color:rgba(14,27,44,.8);">You want creator campaigns run properly, not another thing to manage</span></div>
+          <div style="display:flex; gap:13px; align-items:flex-start;"><svg width="21" height="21" viewBox="0 0 100 100" fill="none" style="display:block; flex-shrink:0; margin-top:1px;"><circle cx="50" cy="50" r="40" stroke="#2e6bf2" stroke-width="5"/><path d="M50 27 L65 67 L50 58 L35 67 Z" fill="#2e6bf2"/></svg><span style="font-size:16.5px; line-height:1.45; color:rgba(14,27,44,.8);">You'd rather put budget behind a few right creators than spray it across many</span></div>
+          <div style="display:flex; gap:13px; align-items:flex-start;"><svg width="21" height="21" viewBox="0 0 100 100" fill="none" style="display:block; flex-shrink:0; margin-top:1px;"><circle cx="50" cy="50" r="40" stroke="#2e6bf2" stroke-width="5"/><path d="M50 27 L65 67 L50 58 L35 67 Z" fill="#2e6bf2"/></svg><span style="font-size:16.5px; line-height:1.45; color:rgba(14,27,44,.8);">You care about what a campaign returned, not what it reached</span></div>
+          <div style="display:flex; gap:13px; align-items:flex-start;"><svg width="21" height="21" viewBox="0 0 100 100" fill="none" style="display:block; flex-shrink:0; margin-top:1px;"><circle cx="50" cy="50" r="40" stroke="#2e6bf2" stroke-width="5"/><path d="M50 27 L65 67 L50 58 L35 67 Z" fill="#2e6bf2"/></svg><span style="font-size:16.5px; line-height:1.45; color:rgba(14,27,44,.8);">You want a partner who owns the operation, not a list of names</span></div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:17px; font-weight:600; color:rgba(14,27,44,.5); margin:0 0 22px;">This probably isn't a fit if&hellip;</h3>
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div style="display:flex; gap:13px; align-items:flex-start;"><svg width="21" height="21" viewBox="0 0 100 100" fill="none" style="display:block; flex-shrink:0; margin-top:1px; transform:rotate(180deg);"><circle cx="50" cy="50" r="40" stroke="rgba(14,27,44,.3)" stroke-width="5"/><path d="M50 27 L65 67 L50 58 L35 67 Z" fill="rgba(14,27,44,.32)"/></svg><span style="font-size:16.5px; line-height:1.45; color:rgba(14,27,44,.55);">You want the cheapest possible posts with no vetting or tracking</span></div>
+          <div style="display:flex; gap:13px; align-items:flex-start;"><svg width="21" height="21" viewBox="0 0 100 100" fill="none" style="display:block; flex-shrink:0; margin-top:1px; transform:rotate(180deg);"><circle cx="50" cy="50" r="40" stroke="rgba(14,27,44,.3)" stroke-width="5"/><path d="M50 27 L65 67 L50 58 L35 67 Z" fill="rgba(14,27,44,.32)"/></svg><span style="font-size:16.5px; line-height:1.45; color:rgba(14,27,44,.55);">You measure success by follower counts and impressions</span></div>
+          <div style="display:flex; gap:13px; align-items:flex-start;"><svg width="21" height="21" viewBox="0 0 100 100" fill="none" style="display:block; flex-shrink:0; margin-top:1px; transform:rotate(180deg);"><circle cx="50" cy="50" r="40" stroke="rgba(14,27,44,.3)" stroke-width="5"/><path d="M50 27 L65 67 L50 58 L35 67 Z" fill="rgba(14,27,44,.32)"/></svg><span style="font-size:16.5px; line-height:1.45; color:rgba(14,27,44,.55);">You want to hand-manage every creator and every message yourself</span></div>
+          <div style="display:flex; gap:13px; align-items:flex-start;"><svg width="21" height="21" viewBox="0 0 100 100" fill="none" style="display:block; flex-shrink:0; margin-top:1px; transform:rotate(180deg);"><circle cx="50" cy="50" r="40" stroke="rgba(14,27,44,.3)" stroke-width="5"/><path d="M50 27 L65 67 L50 58 L35 67 Z" fill="rgba(14,27,44,.32)"/></svg><span style="font-size:16.5px; line-height:1.45; color:rgba(14,27,44,.55);">You see creators as a quick one-off, not a channel worth running right</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section id="faq" class="pad-section" style="padding:118px 0;">
+  <div class="pad-x" style="max-width:920px; margin:0 auto; padding:0 48px;">
+    <div class="reveal" style="margin-bottom:50px;">
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:26px;">
+        <span style="height:1px; width:38px; background:#2e6bf2;"></span>
+        <span style="font-size:13px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#2e6bf2;">Common questions</span>
+      </div>
+      <h2 class="h-xl" style="font-family:'Newsreader',Georgia,serif; font-size:42px; line-height:1.12; letter-spacing:-.015em; font-weight:500; margin:0; color:#0e1b2c;">The questions skeptical founders ask.</h2>
+    </div>
+    <div class="reveal" style="border-bottom:1px solid rgba(14,27,44,.14);">
+      <sc-for list="{{ faqs }}" as="item" hint-placeholder-count="7">
+        <div style="border-top:1px solid rgba(14,27,44,.14);">
+          <button class="faq-q" onClick="{{ item.onToggle }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:24px; padding:26px 0; background:none; border:none; cursor:pointer; text-align:left; font-family:'Newsreader',Georgia,serif; font-size:22px; font-weight:500; color:#0e1b2c; transition:color .2s;">
+            <span>{{ item.q }}</span>
+            <span class="faq-sign" style="font-size:26px; color:#2e6bf2; flex-shrink:0; line-height:1; font-family:'Helvetica Neue',Arial,sans-serif;">{{ item.sign }}</span>
+          </button>
+          <div class="faq-body" data-open="{{ item.openAttr }}"><div><div style="padding:0 0 30px; max-width:760px; font-size:16.5px; line-height:1.65; color:rgba(14,27,44,.7);">{{ item.a }}</div></div></div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CLOSING CTA (navy) ===================== -->
+<section id="contact" class="pad-section" style="padding:130px 0; background:#0e1b2c; color:#f1ede4; position:relative; overflow:hidden;">
+  <img src="assets/mark-dark.png" alt="" style="position:absolute; right:-60px; top:50%; transform:translateY(-50%); width:420px; height:420px; opacity:.10; pointer-events:none;">
+  <div class="pad-x reveal" style="max-width:1200px; margin:0 auto; padding:0 48px; position:relative;">
+    <div style="display:flex; align-items:center; gap:14px; margin-bottom:30px;">
+      <span style="height:1px; width:38px; background:#6f9bff;"></span>
+      <span style="font-size:13px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#6f9bff;">Let's talk</span>
+    </div>
+    <h2 class="h-xl" style="font-family:'Newsreader',Georgia,serif; font-size:50px; line-height:1.1; letter-spacing:-.02em; font-weight:500; margin:0; max-width:860px;">The right creators are out there.<br><span style="font-style:italic; color:#6f9bff;">Let's find yours.</span></h2>
+    <p style="margin:28px 0 0; font-size:18px; line-height:1.6; color:rgba(241,237,228,.7); max-width:660px;">A quick call.<br>We'll talk about your brand, your budget, and which creators would actually move product for you.<br>No decks, no pressure.</p>
+    <div style="margin-top:40px;">
+      <a href="https://cal.com/ni.ck/access-call" class="book-cta btn-primary" style="display:inline-flex; align-items:center; gap:8px; background:#2e6bf2; color:#fff; text-decoration:none; font-size:17px; font-weight:600; padding:18px 32px; border-radius:7px;">Get my creator shortlist &rarr;</a>
+      <p style="margin:22px 0 0; font-size:15.5px; color:rgba(241,237,228,.6);">Or email me directly: <span class="copy-email" data-copy="nick@northhorizonpartners.com" style="color:#6f9bff; font-weight:500;">nick@northhorizonpartners.com</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer style="background:#0e1b2c; color:rgba(241,237,228,.6); border-top:1px solid rgba(241,237,228,.14); padding:66px 0 38px;">
+  <div class="pad-x" style="max-width:1200px; margin:0 auto; padding:0 48px;">
+    <div class="two-col" style="display:grid; grid-template-columns:1.5fr 1fr; gap:48px; align-items:start; padding-bottom:40px; border-bottom:1px solid rgba(241,237,228,.12);">
+      <div style="display:flex; flex-direction:column; gap:20px;">
+        <div style="display:flex; align-items:center; gap:11px;"><svg width="30" height="30" viewBox="0 0 100 100" fill="none" style="display:block; flex-shrink:0;"><circle cx="50" cy="50" r="40" stroke="#f1ede4" stroke-width="3.5"/><line x1="50" y1="6" x2="50" y2="18" stroke="#f1ede4" stroke-width="3.5"/><path d="M50 27 L65 67 L50 58 L35 67 Z" fill="#2e6bf2"/></svg><span style="font-family:'Newsreader',Georgia,serif; font-size:22px; font-weight:500; color:#f1ede4; letter-spacing:.005em; line-height:1;">Horizon Partners</span></div>
+        <div style="font-size:14.5px; line-height:1.85; color:rgba(241,237,228,.55); max-width:430px;">Creator campaigns run end to end.<br>Tracked against real outcomes.<br>Start with one, scale from there.</div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:11px;">
+        <span style="font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:#6f9bff;">Questions?</span>
+        <span class="copy-email" data-copy="nick@northhorizonpartners.com" style="font-family:'Newsreader',Georgia,serif; font-size:21px; color:#f1ede4; width:fit-content;">nick@northhorizonpartners.com</span>
+        <span style="font-size:12.5px; color:rgba(241,237,228,.38);">Click to copy</span>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; padding-top:26px; font-size:13.5px;">
+      <span style="color:rgba(241,237,228,.4);">&copy; 2026 North Horizon Partners LLC</span>
+      <div style="display:flex; align-items:center; gap:26px;">
+        <a href="Privacy.dc.html" class="nav-link" style="color:rgba(241,237,228,.55);">Privacy</a>
+        <a href="Terms.dc.html" class="nav-link" style="color:rgba(241,237,228,.55);">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { openFaq: 0 };
+  toggle(i){ this.setState(s => ({ openFaq: s.openFaq === i ? -1 : i })); }
+  renderVals(){
+    const data = [
+      { q: "We already work with creators directly. Why you?", a: "Working with creators directly isn't the same as running a campaign. The direct route is fine until a creator ghosts mid-campaign, posts off-brief, or quotes you three different rates. We own sourcing, vetting, contracts, briefing, delivery, and tracking, so the whole operation runs clean and none of it lands on your desk. You also stop overpaying, because creators quote agencies better than they quote one-off brands." },
+      { q: "How do I know it'll give ROI?", a: "We set tracking before the first creator posts. Codes, links, clear deliverable terms. Every campaign reports against real numbers, not impressions. The brands that got burned before got sold reach. We sell outcomes you can measure." },
+      { q: "Why pay your margin on top of the creator fee?", a: "The margin partly comes out of the creator fee, not just on top of it, because we negotiate better rates than a one-off brand gets. The rest buys the operation and the judgment: the right creators picked, the campaign run clean, the results tracked. The alternative is spending your nights in DMs negotiating rates you'll overpay anyway." },
+      { q: "Can you guarantee results?", a: "No, and anyone who guarantees a specific return is lying to close. What we guarantee is the operation: vetted creators, clean contracts, on-brief delivery, real tracking. We control whether the campaign runs right and reports right. We don't control whether a given audience converts, which is exactly why we obsess over picking the right creators in the first place." },
+      { q: "What does it cost?", a: "Most brands start with a single campaign, so it's a contained spend with a measurable outcome, not a retainer commitment. We scope it to your budget and the creators that fit. The first campaign is built to prove the model, then you decide what to scale." },
+      { q: "What kind of creators do you work with?", a: "Vetted creators across the tiers that give the best price-to-engagement, screened for real audiences and a content style that fits your brand. We pick for engagement and fit, not raw follower count." },
+      { q: "What's the time commitment on my end?", a: "One call to start, then a short brief on your brand and goals. After that, we run it. You approve the direction and the creators, we handle everything else, and you get a clean report at the end." }
+    ];
+    const faqs = data.map((f, i) => ({
+      q: f.q, a: f.a,
+      open: this.state.openFaq === i,
+      openAttr: this.state.openFaq === i ? "1" : "0",
+      sign: this.state.openFaq === i ? "\u2013" : "+",
+      onToggle: () => this.toggle(i)
+    }));
+    return { faqs };
+  }
+  componentDidMount(){
+    try { const url = window.SITE_CONFIG && window.SITE_CONFIG.bookingUrl; if (url) document.querySelectorAll('.book-cta').forEach(a => a.setAttribute('href', url)); } catch(e){}
+    try {
+      const fallbackCopy = (txt) => { try { const ta = document.createElement('textarea'); ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); } catch(e){} };
+      document.querySelectorAll('.copy-email').forEach(el => {
+        el.addEventListener('click', () => {
+          const email = el.getAttribute('data-copy'); const prev = el.textContent;
+          const done = () => { el.textContent = 'Copied!'; setTimeout(() => { el.textContent = prev; }, 1800); };
+          if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(email).then(done, () => { fallbackCopy(email); done(); }); }
+          else { fallbackCopy(email); done(); }
+        });
+      });
+    } catch(e){}
+    try {
+      const reveals = document.querySelectorAll('.reveal');
+      reveals.forEach(el => el.setAttribute('data-rv','out'));
+      const io = new IntersectionObserver((es) => { es.forEach(en => { if (en.isIntersecting) { en.target.setAttribute('data-rv','in'); io.unobserve(en.target); } }); }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+      reveals.forEach(el => io.observe(el));
+      setTimeout(() => document.querySelectorAll('.reveal').forEach(el => el.setAttribute('data-rv','in')), 2400);
+    } catch(e){ document.querySelectorAll('.reveal').forEach(el => el.setAttribute('data-rv','in')); }
+    try { if (window.matchMedia('(pointer:fine)').matches) this.initCursor(); } catch(e){}
+    try {
+      const nav = document.getElementById('nhp-nav');
+      const onScroll = () => { if (nav) nav.style.boxShadow = window.scrollY > 8 ? '0 8px 30px rgba(14,27,44,.07)' : 'none'; };
+      window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    } catch(e){}
+  }
+  initCursor(){
+    const dot = document.createElement('div'); dot.className = 'nhp-cursor';
+    const ring = document.createElement('div'); ring.className = 'nhp-ring';
+    document.body.appendChild(dot); document.body.appendChild(ring); document.body.style.cursor = 'none';
+    let mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my;
+    window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; });
+    const loop = () => { rx += (mx - rx) * 0.2; ry += (my - ry) * 0.2; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(loop); }; loop();
+    window.addEventListener('mouseover', e => { if (e.target.closest('a,button,.faq-q,.copy-email')) { ring.classList.add('hov'); dot.classList.add('hov'); } });
+    window.addEventListener('mouseout', e => { if (e.target.closest('a,button,.faq-q,.copy-email')) { ring.classList.remove('hov'); dot.classList.remove('hov'); } });
+    window.addEventListener('mousedown', () => dot.classList.add('down'));
+    window.addEventListener('mouseup', () => dot.classList.remove('down'));
+    document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; ring.style.opacity = '0'; });
+    document.addEventListener('mouseenter', () => { dot.style.opacity = '1'; ring.style.opacity = '1'; });
+  }
+}
+</script>
+</body>
+</html>
